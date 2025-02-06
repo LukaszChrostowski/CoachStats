@@ -23,4 +23,4 @@ Aby uruchomić aktualną wersję aplikacji, wykonaj następujące kroki:
 
 ## Szczegóły
 
-Działanie aplikacji zostało opisane w podręczniku użytkownika znajdującym się w drzewie plików na repozytorium. Poza tym odsyłam do [repozytorium](https://git.wmi.amu.edu.pl/s478993/fantastyczne_gole) uniwersytetu na którym powstała aplikacja. Zawiera ono kod źródłowy aplikacji.
+Działanie aplikacji zostało opisane w podręczniku użytkownika znajdującym w repozytorium. Poza tym zachęcam do przejrzenia analizy danych na podstawie których stworzono model [klik-klik](https://github.com/LukaszChrostowski/CoachStats/blob/main/notebooks/data_analysis.ipynb), a także sam proces jego uczenia [klik-klik](https://github.com/LukaszChrostowski/CoachStats/blob/main/notebooks/xgboost.ipynb). Przetworzone dane znajdują się w [klik-klik](https://github.com/LukaszChrostowski/CoachStats/blob/main/notebooks/data_to_ml.csv).

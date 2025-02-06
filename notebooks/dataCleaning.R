@@ -1,4 +1,6 @@
 ## Loading R packages and source the "getshots" customized own function
+#install.packages("remotes")
+remotes::install_github("indenkun/yd2m")
 library(jsonlite)
 library(tidyverse)
 library(ggsoccer)
@@ -123,13 +125,17 @@ loc2locdistance <- function(x1, y1, x2, y2) {
 }
 
 get_shots2 <- function(json_file) {
-  data <- fromJSON(json_file) %>% filter(type$name == "Shot") %>% dplyr::select(c(minute, position, location, shot))
+  data <- fromJSON(json_file) %>% filter(type$name == "Shot") %>% dplyr::select(c(minute, position, location, shot, team, under_pressure, player))
 
   df_temp <- do.call(rbind, lapply(data$location, function(loc) c(120, 80) - loc))
-  colnames(df_temp) <- c("x1", "y1")
+  df_temp_end <- do.call(rbind, lapply(data$shot$end_location, function(loc) c(120, 80) - loc[1:2]))
+  colnames(df_temp) <- colnames(df_temp_end) <- c("x1", "y1")
 
   data$x1 <- df_temp[,1]
   data$y1 <- df_temp[,2]
+  
+  data$x1_end <- df_temp_end[,1]
+  data$y1_end <- df_temp_end[,2]
 
   data$shot$freeze_frame <- Map(function(ff, x1, y1) {
     ff$x1 <- yd_to_m(x1)
@@ -139,7 +145,7 @@ get_shots2 <- function(json_file) {
   data$shot$freeze_frame, data$x1, data$y1)
 
   tryCatch({
-    df_players_location <- mapply( function(sublist) {
+    df_players_location <- mapply(function(sublist) {
       if (!is.null(sublist$teammate)) {
         df_players <- sapply(sublist$location, function(loc) c(120, 80) - loc %>% as.numeric() %>% yd_to_m() %>% round(., digits = 1)) %>% t() %>% as.data.frame()
         # df <- sapply(sublist$teammate, function(tmt) cbind(df_players, tmt))
@@ -235,13 +241,13 @@ get_shots2 <- function(json_file) {
   })
 
 
-  data$shot <- data$shot %>% select(-freeze_frame, -statsbomb_xg, -key_pass_id)
+  data$shot <- data$shot %>% select(-freeze_frame, -key_pass_id)
   data$shot$body_part <- data$shot$body_part %>% select(-id)
   data$shot$technique <- data$shot$technique %>% select(-id)
   data$shot$type <- data$shot$type %>% select(-id)
   data$position <- data$position %>% select(-id)
 
-  data$shot <- data$shot %>% select(-end_location)
+  # data$shot <- data$shot %>% select(-end_location)
 
   tryCatch({ # TODO reduce error cases
     if ("one_on_one" %in% colnames(data$shot)) {
@@ -310,8 +316,13 @@ get_shots2 <- function(json_file) {
   })
 
   data <- data %>% mutate(is_goal = ifelse(shot$outcome$id == 97, 1, 0),
+                          under_pressure = ifelse(is.na(under_pressure), FALSE, under_pressure),
                           x1 = yd_to_m(x1) %>% round(., digits = 1),
                           y1 = yd_to_m(y1) %>% round(., digits = 1),
+                          x1_end = yd_to_m(x1_end) %>% round(., digits = 1),
+                          y1_end = yd_to_m(y1_end) %>% round(., digits = 1),
+                          angle_end = loc2angle(x1_end, y1_end) %>% round(., digits = 1),
+                          distance_end = loc2distance(x = x1_end, y = y1_end),
                           angle = loc2angle(x1, y1) %>% round(., digits = 1),
                           distance = loc2distance(x = x1, y = y1)) %>%
                   select(-location)
@@ -321,7 +332,10 @@ get_shots2 <- function(json_file) {
     unnest(shot_type, names_sep = "_") %>%
     unnest(shot_outcome, names_sep = "_") %>%
     unnest(shot_technique, names_sep = "_") %>%
-    unnest(shot_body_part, names_sep = "_")
+    unnest(shot_body_part, names_sep = "_") %>% 
+    unnest(team, names_sep = "_") %>% 
+    unnest(player, names_sep = "_") %>% 
+    select(-shot_end_location)
 
   data <- cbind(data, df_players_location)
   data
@@ -329,8 +343,16 @@ get_shots2 <- function(json_file) {
 
 file_names <- list.files(path = "data/la_liga_events/", pattern = "*.json")
 data_list <- lapply(paste("data/la_liga_events/", file_names, sep = ""), get_shots2)
-combined_data <- bind_rows(data_list)
-skimr::skim(combined_data)
+
+file_names2 <- list.files(path = "data/events/", pattern = "*.json")
+data_list2 <- lapply(paste("data/events/", file_names2, sep = ""), get_shots2)
+
+combined_data1 <- bind_rows(data_list)
+combined_data2 <- bind_rows(data_list2)
+skimr::skim(combined_data1)
+skimr::skim(combined_data2)
+
+combined_data <- rbind(combined_data1, combined_data2)
 
 # # sample data
 # data <- fromJSON("data/la_liga_events/ (1000).json") %>% filter(type$name == "Shot") %>% dplyr::select(c(minute, position, location, shot))
@@ -343,7 +365,8 @@ data3_final <- combined_data %>% select(-c(shot_outcome_name,
 pattern <- "^(x_player_|y_player_).*$"
 cols <- names(data3_final)[grepl(pattern, names(data3_final))]
 data_final <- data3_final %>% unnest(all_of(cols))
-skimr::skim(data_final)
-write_csv(data_final, file = "data/final_data.csv")
-#df_test <- read.csv("data/final_data.csv", nrows = 10000)
+data_to_ml <- distinct(data_final)
+skimr::skim(data_to_ml)
+write_csv(data_to_ml, file = "data/data_to_ml.csv")
+df_test <- read.csv("Desktop/CoachStats/data/data_to_ml.csv", nrows = 10000)
 ##################### The fourth dataset ##############################

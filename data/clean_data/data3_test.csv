@@ -1,0 +1,19 @@
+"","minute","position_name","shot_body_part_name","shot_type_name","shot_outcome_name","shot_technique_name","shot_one_on_one","shot_first_time","shot_aerial_won","shot_saved_to_post","shot_deflected","shot_saved_off_target","shot_open_goal","shot_follows_dribble","shot_redirect","x1","y1","number_of_players_opponents","number_of_players_teammates","kick_off","angle","is_goal"
+"1",11,"Right Wing","Left Foot","Open Play","Blocked","Normal",FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,93.2,44.4,9,5,FALSE,0.0640059213742957,0
+"2",13,"Right Wing","Left Foot","Open Play","Saved","Lob",TRUE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,100.3,42.8,1,0,FALSE,0.061730105843871,0
+"3",21,"Right Center Forward","Right Foot","Open Play","Blocked","Normal",TRUE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,110.1,28,1,0,FALSE,0.0624299048089645,0
+"4",25,"Left Midfield","Left Foot","Open Play","Off T","Half Volley",FALSE,TRUE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,108.8,25,5,2,FALSE,0.0638870054917821,0
+"5",32,"Center Forward","Left Foot","Open Play","Goal","Lob",FALSE,TRUE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,107.1,42.5,2,1,FALSE,0.0590398311560372,1
+"6",38,"Right Back","Left Foot","Open Play","Goal","Normal",FALSE,TRUE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,107.7,47.3,6,4,FALSE,0.0569702959919461,1
+"7",42,"Right Wing","Left Foot","Free Kick","Off T","Normal",FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,87.3,45.3,11,7,FALSE,0.0660566548690278,0
+"8",47,"Right Wing","Head","Open Play","Saved","Normal",TRUE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,112,32.2,1,0,FALSE,0.060353615283394,0
+"9",49,"Right Defensive Midfield","Right Foot","Free Kick","Off T","Normal",FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,84.7,35.2,11,6,FALSE,0.0736787207689688,0
+"10",58,"Right Wing","Right Foot","Open Play","Blocked","Normal",FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,115.6,51.7,2,0,FALSE,0.052762547731953,0
+"11",65,"Right Center Forward","Right Foot","Open Play","Goal","Volley",FALSE,TRUE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,104.3,37.6,3,0,FALSE,0.0620981693525753,1
+"12",69,"Left Wing","Right Foot","Open Play","Saved","Normal",FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,101.2,24.7,4,0,FALSE,0.068243631613985,0
+"13",71,"Right Center Forward","Right Foot","Open Play","Saved","Volley",FALSE,TRUE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,115.5,44.1,1,0,FALSE,0.0553048979119624,0
+"14",73,"Left Wing","Left Foot","Open Play","Blocked","Normal",FALSE,TRUE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,108.3,33.4,6,1,FALSE,0.0617057300721472,0
+"15",73,"Center Forward","Right Foot","Open Play","Off T","Normal",FALSE,TRUE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,107.7,39.4,6,2,FALSE,0.0599333680981008,0
+"16",76,"Center Forward","Right Foot","Open Play","Off T","Half Volley",TRUE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,108.7,52.1,1,0,FALSE,0.0547568224463756,0
+"17",79,"Left Center Forward","Right Foot","Open Play","Off T","Volley",FALSE,TRUE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,113.9,34.4,4,1,FALSE,0.0588824107265361,0
+"18",89,"Right Center Forward","Left Foot","Open Play","Off T","Normal",FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,100.2,51.6,7,2,FALSE,0.0577379599935821,0
