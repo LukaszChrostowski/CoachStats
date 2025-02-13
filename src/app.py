@@ -26,12 +26,17 @@ from notebooks.data_analysis_funs import (
     plot_shot_technique
 )
 
+# Inicjalizacja aplikacji Dash z wykorzystaniem zewnętrznego szablonu (Bootstrap)
+external_stylesheets = ['https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css']
+app = app = dash.Dash(__name__, external_stylesheets=external_stylesheets, suppress_callback_exceptions=True)
+server = app.server
+
 # Załaduj dane analityczne
 df_analysis = pd.read_csv('notebooks/data_to_ml.csv')
 # Załaduj wyuczony model xG
 xgb_model = load('notebooks/xgboost.joblib')
 # Ścieżka do obrazu boiska
-pitch_image_path = "app/src/assets/bojo.png"
+pitch_image_path = "assets/bojo.png"
 
 # Przygotowanie list do dropdownów dla drużyn i zawodników
 teams = ['all'] + sorted(df_analysis['team_name'].unique().tolist())
@@ -176,12 +181,6 @@ def create_pitch_figure(points_data=None):
     )
 
     return fig
-
-
-# Inicjalizacja aplikacji Dash z wykorzystaniem zewnętrznego szablonu (Bootstrap)
-external_stylesheets = ['https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css']
-app = app = dash.Dash(__name__, external_stylesheets=external_stylesheets, suppress_callback_exceptions=True)
-server = app.server
 
 # Układ główny – wielostronicowy (używamy dcc.Location)
 app.layout = html.Div([
