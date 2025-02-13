@@ -6,19 +6,11 @@ import numpy as np
 import xgboost
 from sklearn.preprocessing import OrdinalEncoder
 
-# Funkcja zwraca prawdopodobieństwo zdobycia gola
-def LogisticRegression_predict_proba(position_x, position_y, distance_to_goalM, angle, match_minute, Number_Intervening_Opponents, Number_Intervening_Teammates, isFoot, isHead): 
-    # distance_to_goalM = sqrt(( (position_x**2) + (position_y**2)))   
-    model = load('regresja_logistyczna.joblib')
-    X_new = pd.DataFrame(columns=['position_x', 'position_y', 'distance_to_goalM', 'angle','match_minute', 'Number_Intervening_Opponents','Number_Intervening_Teammates', 'isFoot', 'isHead'])
-    X_new.loc[len(X_new.index)] = [position_x, position_y, distance_to_goalM, angle, match_minute, Number_Intervening_Opponents, Number_Intervening_Teammates, isFoot, isHead]
-    return model.predict_proba(X_new)[0][1].round(2)
-
 #xgBoost
-def xgboost_predict_proba(minute=0, position_name='Center Forward', shot_body_part_name='Right Foot', 
+def xgboost_predict_proba(position_name='Center Forward', shot_body_part_name='Right Foot', 
                           shot_technique_name='Normal', shot_type_name='Open Play', shot_first_time=False, 
                           shot_one_on_one=False, shot_aerial_won=False,
-                          shot_open_goal=False, shot_follows_dribble=False, shot_redirect=False, x1=0.0, y1=0.0,
+                          shot_open_goal=False, shot_follows_dribble=False, under_pressure = True,
                           number_of_players_opponents=0, number_of_players_teammates=0, 
                           angle=0.0, distance=0.0, x_player_opponent_Goalkeeper=np.nan, 
                           x_player_opponent_8=np.nan, x_player_opponent_1=np.nan, x_player_opponent_2=np.nan, 
@@ -44,10 +36,10 @@ def xgboost_predict_proba(minute=0, position_name='Center Forward', shot_body_pa
    enc = OrdinalEncoder() 
    enc = load('labelEncoder.joblib')
 
-   X_new = pd.DataFrame(columns=['minute', 'position_name', 'shot_body_part_name', 'shot_technique_name',
+   X_new = pd.DataFrame(columns=['position_name', 'shot_body_part_name', 'shot_technique_name',
       'shot_type_name', 'shot_first_time', 'shot_one_on_one',
       'shot_aerial_won', 'shot_open_goal',
-      'shot_follows_dribble', 'shot_redirect', 'x1', 'y1',
+      'shot_follows_dribble', 'under_pressure',
       'number_of_players_opponents', 'number_of_players_teammates',
       'angle', 'distance', 'x_player_opponent_Goalkeeper',
       'x_player_opponent_8', 'x_player_opponent_1', 'x_player_opponent_2',
@@ -67,10 +59,10 @@ def xgboost_predict_proba(minute=0, position_name='Center Forward', shot_body_pa
       'y_player_teammate_10', 'x_player_opponent_7', 'y_player_opponent_7',
       'x_player_teammate_Goalkeeper', 'y_player_teammate_Goalkeeper'])
     
-   X_new.loc[len(X_new.index)] = [minute, position_name, shot_body_part_name, shot_technique_name,
+   X_new.loc[len(X_new.index)] = [position_name, shot_body_part_name, shot_technique_name,
       shot_type_name, shot_first_time, shot_one_on_one,
       shot_aerial_won, shot_open_goal,
-      shot_follows_dribble, shot_redirect, x1, y1,
+      shot_follows_dribble, under_pressure,
       number_of_players_opponents, number_of_players_teammates,
       angle, distance, x_player_opponent_Goalkeeper,
       x_player_opponent_8, x_player_opponent_1, x_player_opponent_2,
@@ -95,14 +87,12 @@ def xgboost_predict_proba(minute=0, position_name='Center Forward', shot_body_pa
     'shot_type_name', 
     'shot_body_part_name']] = enc.transform(X_new[['position_name', 'shot_technique_name', 'shot_type_name', 'shot_body_part_name']], )
 
-   X_new[['minute',
-           'position_name', 
+   X_new[['position_name', 
            'shot_technique_name', 
            'shot_type_name', 
            'number_of_players_opponents', 
            'number_of_players_teammates', 
-           'shot_body_part_name']] = X_new[['minute', 
-                                            'position_name', 
+           'shot_body_part_name']] = X_new[['position_name', 
                                             'shot_technique_name', 
                                             'shot_type_name', 
                                             'number_of_players_opponents', 
@@ -127,13 +117,11 @@ def xgboost_predict_proba(minute=0, position_name='Center Forward', shot_body_pa
            'shot_one_on_one', 
            'shot_aerial_won', 
            'shot_open_goal', 
-           'shot_follows_dribble', 
-           'shot_redirect']] = X_new[['shot_first_time', 
+           'shot_follows_dribble']] = X_new[['shot_first_time', 
                                       'shot_one_on_one', 
                                       'shot_aerial_won', 
                                        'shot_open_goal', 
-                                       'shot_follows_dribble', 
-                                       'shot_redirect']].astype(int)
+                                       'shot_follows_dribble']].astype(int)
    print(X_new)
    print(X_new.dtypes)
 

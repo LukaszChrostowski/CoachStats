@@ -1,0 +1,16 @@
+dash==2.18.2
+Flask==3.1.0
+flask_cors==5.0.0
+joblib==1.4.2
+matplotlib==3.10.0
+mplsoccer==1.4.0
+numpy==2.2.3
+pandas==2.2.3
+Pillow==11.1.0
+plotly==6.0.0
+scikit_learn==1.6.1
+scipy==1.15.1
+seaborn==0.13.2
+xgboost==2.1.4
+gunicorn
+dash-tools

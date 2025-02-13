@@ -1,6 +1,6 @@
 from flask import Flask, request, jsonify
 from flask_cors import CORS
-from modele.modele import LogisticRegression_predict_proba, xgboost_predict_proba, xgboost_predict_proba_v2
+from modele.modele import xgboost_predict_proba, xgboost_predict_proba_v2
 import numpy as np
 import math
 
@@ -184,6 +184,8 @@ def get_model():
     else: 
         shot_redirect = False
 
+    under_pressure = True # TODO
+
     #### CHECKLIST
     print('CHECKLISTA')
     print('shot_first_time', shot_first_time)
@@ -194,8 +196,7 @@ def get_model():
     print('shot_redirect', shot_redirect)
 
     # MODEL XGBOOST
-    response = xgboost_predict_proba(minute=int(gameMinute), #minute=0,
-                                     position_name=position_name, 
+    response = xgboost_predict_proba(position_name=position_name, 
                                      shot_body_part_name=body_part, 
                                      shot_technique_name=technique, 
                                      shot_type_name=acionType, 
@@ -204,8 +205,7 @@ def get_model():
                                      shot_aerial_won=shot_aerial_won, 
                                      shot_open_goal=shot_open_goal, 
                                      shot_follows_dribble=shot_follows_dribble, 
-                                     shot_redirect=shot_redirect,
-                                     x1=shooter_x, y1=shooter_y,
+                                     under_pressure = under_pressure,
                                      number_of_players_opponents=number_of_players_opponents, 
                                      number_of_players_teammates=number_of_players_teammates, 
                                      angle=angle, distance=dist, 
@@ -242,7 +242,7 @@ def get_model():
     #print(response)
     res = str(response)
     #return {"response":res}
-    return jsonify({"response":res})
+    return jsonify({"xG": response})
 
 """"
 def get_model():
