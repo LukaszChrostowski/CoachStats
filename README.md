@@ -6,16 +6,13 @@ CoachStats to innowacyjne narzędzie służące do analizowania statystyk Expect
 
 ## Funkcje
 
+-  **Dane historyczne:** Analiza danych historycznych (głównie strzałów) pod wieloma kątami.
 -   **Analiza XG:** Analiza XG dla danej sytuacji meczowej.
 -   **Personalizowana makieta:** Możliwość tworzenia własnej makiety odpowiadającej sytuacji meczowej.
 
 ## Uruchomienie
 
-Aby uruchomić aktualną wersję aplikacji, wykonaj następujące kroki:
-
-1.  **Uruchomienie serwera:** Aby uruchomić serwer należy wejść w [link](https://sg-server-ne4h.onrender.com/) oraz zaczekać do pojawienia się komunikatu o błędzie 404. Aplikacja korzysta z darmowej wersji obsługi serwera, stąd sposób jego uruchomienia nie jest standardowy.
-
-2.  **Uruchomienie aplikacji webowej** Po wykonaiu kroku 1 można wejść na właściwą stronę [aplikacji](https://statgoals.onrender.com/).
+1.  **Uruchomienie aplikacji webowej** Aby skorzystać z aplikacji naley wejść [tutaj](https://coachstats.onrender.com/).
 
 ## Dane
 
