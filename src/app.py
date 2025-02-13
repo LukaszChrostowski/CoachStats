@@ -28,7 +28,7 @@ from notebooks.data_analysis_funs import (
 
 # Inicjalizacja aplikacji Dash z wykorzystaniem zewnętrznego szablonu (Bootstrap)
 external_stylesheets = ['https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css']
-app = app = dash.Dash(__name__, external_stylesheets=external_stylesheets, suppress_callback_exceptions=True)
+app = dash.Dash(__name__, external_stylesheets=external_stylesheets, suppress_callback_exceptions=True)
 server = app.server
 
 # Załaduj dane analityczne
